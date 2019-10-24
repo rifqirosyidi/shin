@@ -5,12 +5,16 @@ from django.http import HttpResponse
 
 # Create your views here.
 def article_list(request):
-    list_all_article = Article.objects.all()
+    articles = Article.objects.all()
     context = {
-        'list_all_article': list_all_article
+        'articles': articles
     }
     return render(request, 'articles/article_list.html', context)
 
 
 def article_detail(request, slug):
-    return HttpResponse(slug)
+    article = Article.objects.get(slug=slug)
+    context = {
+        'article': article
+    }
+    return render(request, 'articles/article_detail.html', context)
